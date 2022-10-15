@@ -30,23 +30,26 @@ public class PartController {
 
     @PostMapping
     private ResponseEntity<Result> addPart(@Valid @RequestBody PartDTO partDTO) {
+        Result result = service.addPart(partDTO);
         return ResponseEntity
-                .status(service.addPart(partDTO).getStatus())
-                .body(service.addPart(partDTO));
+                .status(result.getStatus())
+                .body(result);
     }
 
     @PutMapping("/{partId}")
     private ResponseEntity<Result> updatePart(@Valid @RequestBody PartDTO partDTO,
                                               @PathVariable Integer partId) {
+        Result result = service.updatePart(partDTO, partId);
         return ResponseEntity
-                .status(service.updatePart(partDTO, partId).getStatus())
-                .body(service.updatePart(partDTO, partId));
+                .status(result.getStatus())
+                .body(result);
     }
 
     @DeleteMapping("/{partId}")
     private ResponseEntity<Result> deletePart(@PathVariable Integer partId) {
+        Result result = service.deletePart(partId);
         return ResponseEntity
-                .status(service.deletePart(partId).getStatus())
-                .body(service.deletePart(partId));
+                .status(result.getStatus())
+                .body(result);
     }
 }

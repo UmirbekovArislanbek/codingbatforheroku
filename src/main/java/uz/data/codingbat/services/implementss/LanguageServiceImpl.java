@@ -46,11 +46,13 @@ public class LanguageServiceImpl implements LanguageService {
             return new Result("This language already exist", false, HttpStatus.CONFLICT);
         }
         Optional<Language> languageOptional = repository.findById(languageId);
-        if (languageOptional.isPresent()) {
-            repository.save(language);
-            return new Result("Language updated!", true, HttpStatus.ACCEPTED);
+        if (!languageOptional.isPresent()) {
+            return new Result("Language not found!", false, HttpStatus.NOT_FOUND);
         }
-        return new Result("Language not found!", false, HttpStatus.NOT_FOUND);
+        Language updating = languageOptional.get();
+        updating.setName(language.getName());
+        repository.save(updating);
+        return new Result("Language updated!", true, HttpStatus.ACCEPTED);
     }
 
     @Override

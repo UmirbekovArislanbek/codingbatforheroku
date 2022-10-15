@@ -36,11 +36,15 @@ public class TestServiceImpl implements TestService {
     @Override
     public Result updateTest(Test test, Integer testId) {
         Optional<Test> optionalTest = repository.findById(testId);
-        if (optionalTest.isPresent()) {
-            repository.save(test);
-            return new Result("Test updated!", true, HttpStatus.ACCEPTED);
+        if (!optionalTest.isPresent()) {
+            return new Result("Test not found!", false, HttpStatus.NOT_FOUND);
         }
-        return new Result("Test not found!", false, HttpStatus.NOT_FOUND);
+        Test updating = optionalTest.get();
+        updating.setTestCode(test.getTestCode());
+        updating.setResult(test.getResult());
+        repository.save(updating);
+        return new Result("Test updated!", true, HttpStatus.ACCEPTED);
+
     }
 
     @Override

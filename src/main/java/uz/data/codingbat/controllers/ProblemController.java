@@ -30,23 +30,26 @@ public class ProblemController {
 
     @PostMapping
     private ResponseEntity<Result> addProblem(@Valid @RequestBody ProblemDTO problemDTO) {
+        Result result = service.addProblem(problemDTO);
         return ResponseEntity
-                .status(service.addProblem(problemDTO).getStatus())
-                .body(service.addProblem(problemDTO));
+                .status(result.getStatus())
+                .body(result);
     }
 
     @PutMapping("/{problemId}")
     private ResponseEntity<Result> updateProblem(@Valid @RequestBody ProblemDTO problemDTO,
                                                  @PathVariable Integer problemId) {
+        Result result = service.updateProblem(problemDTO, problemId);
         return ResponseEntity
-                .status(service.updateProblem(problemDTO, problemId).getStatus())
-                .body(service.updateProblem(problemDTO, problemId));
+                .status(result.getStatus())
+                .body(result);
     }
 
     @DeleteMapping("/{problemId}")
     private ResponseEntity<Result> deleteProblem(@PathVariable Integer problemId) {
+        Result result = service.deleteProblem(problemId);
         return ResponseEntity
-                .status(service.deleteProblem(problemId).getStatus())
-                .body(service.deleteProblem(problemId));
+                .status(result.getStatus())
+                .body(result);
     }
 }

@@ -29,24 +29,27 @@ public class TestController {
 
     @PostMapping
     private ResponseEntity<Result> addTest(@Valid @RequestBody Test test) {
+        Result result = service.addTest(test);
         return ResponseEntity
-                .status(service.addTest(test).getStatus())
-                .body(service.addTest(test));
+                .status(result.getStatus())
+                .body(result);
     }
 
     @PutMapping("/{testId}")
     private ResponseEntity<Result> updateTest(@PathVariable Integer testId,
                                               @Valid @RequestBody Test test) {
+        Result result = service.updateTest(test, testId);
         return ResponseEntity
-                .status(service.updateTest(test, testId).getStatus())
-                .body(service.updateTest(test, testId));
+                .status(result.getStatus())
+                .body(result);
     }
 
     @DeleteMapping("/{testId}")
     private ResponseEntity<Result> deleteTest(@PathVariable Integer testId) {
+        Result result = service.deleteTest(testId);
         return ResponseEntity
-                .status(service.deleteTest(testId).getStatus())
-                .body(service.deleteTest(testId));
+                .status(result.getStatus())
+                .body(result);
     }
 
 }

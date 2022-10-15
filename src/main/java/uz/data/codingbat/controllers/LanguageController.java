@@ -29,24 +29,27 @@ public class LanguageController {
 
     @PostMapping
     private ResponseEntity<Result> addLanguage(@Valid @RequestBody Language language) {
+        Result result = service.addLanguage(language);
         return ResponseEntity
-                .status(service.addLanguage(language).getStatus())
-                .body(service.addLanguage(language));
+                .status(result.getStatus())
+                .body(result);
     }
 
     @PutMapping("/{languageId}")
     private ResponseEntity<Result> updateLanguage(@Valid @RequestBody Language language,
                                                   @PathVariable Integer languageId) {
+        Result result = service.updateLanguage(language, languageId);
         return ResponseEntity
-                .status(service.updateLanguage(language, languageId).getStatus())
-                .body(service.updateLanguage(language, languageId));
+                .status(result.getStatus())
+                .body(result);
     }
 
     @DeleteMapping("/{languageId}")
     private ResponseEntity<Result> deleteLanguage(@PathVariable Integer languageId) {
+        Result result = service.deleteLanguage(languageId);
         return ResponseEntity
-                .status(service.deleteLanguage(languageId).getStatus())
-                .body(service.deleteLanguage(languageId));
+                .status(result.getStatus())
+                .body(result);
     }
 
 }
